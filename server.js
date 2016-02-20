@@ -51,12 +51,14 @@ app.get('/calls', function(req, res) {
 });
 
 app.post('/calls', function(req, res) {
-    req.assert('value', 'An integer >= 0 is required').isInt()
     console.log("Post body.value is "+ req.body.value)
+    req.assert('value', 'An integer >= 0 is required').isInt()
     if (req.body.value < 0) {
         console.log("invalid integer (less than zero)")
         res.status(400).send('Invalid integer')
     }
+    get_counter = parseInt(req.body.value, 10);
+    console.log("get_counter" + get_counter)
     res.status(200)
 });
 

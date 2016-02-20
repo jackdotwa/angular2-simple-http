@@ -25,12 +25,12 @@ class NodeApi {
 
     post(value) {
         console.log('in the post? ' + JSON.stringify(value))
-        const endpoint = 'https://127.0.0.1:8081/calls';
+        const endpoint = 'http://127.0.0.1:8081/calls';
         const headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
         var body = JSON.stringify({"value": value});
         return this.http.post(endpoint, body, options)
-            .map((res: Response) => res.json()).subscribe()
+            .map((res: Response) => res.json()).catch(this.handleError).subscribe()
     }
 
     private handleError (error: Response) {
@@ -89,7 +89,7 @@ class App implements OnInit {
 
     public doPost() {
         console.log('call_post ' + this.call_post)
-        this.nodeApi.post({"value": this.call_post})
+        this.nodeApi.post(this.call_post)
     }
 
     ngOnInit() {
